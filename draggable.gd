@@ -2,8 +2,11 @@ extends CSGSphere3D
 class_name Draggable
 
 var dragging = false
+
 @onready var worldspace = get_world_3d().direct_space_state
 @onready var params = PhysicsRayQueryParameters3D.new()
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
