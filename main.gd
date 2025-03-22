@@ -22,8 +22,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		var collision = worldspace.intersect_ray(params)
 		if collision and collision["collider"] is Draggable:
 				draggable = collision["collider"]
+				draggable.use_collision = false
 				draggable.dragging = true
 	
 	elif event is InputEventMouseButton and !event.is_pressed() and draggable:
+		draggable.use_collision = true
 		draggable.dragging = false
+		draggable = null
+
+
+func _on_area_3d_mouse_entered() -> void:
+	print("mouse entered")#
+	if draggable:
+		draggable.queue_free()
 		draggable = null
