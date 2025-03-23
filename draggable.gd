@@ -20,7 +20,6 @@ func _process(delta: float) -> void:
 		params.from = get_viewport().get_camera_3d().project_ray_origin(mouse)
 		params.to = get_viewport().get_camera_3d().project_position(mouse, 1000)
 		inter = worldspace.intersect_ray(params)
+		print(inter)
 		var pos = inter["position"]
-		#print(inter)
 		position = Vector3(pos.x, 0, pos.z)
-		#pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bwnp1m7uwum3u"]
+[gd_scene load_steps=10 format=3 uid="uid://bwnp1m7uwum3u"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_17rot"]
 [ext_resource type="Script" path="res://draggable.gd" id="2_jhlpo"]
@@ -27,6 +27,9 @@ albedo_color = Color(1, 1, 0, 0.603922)
 [sub_resource type="CylinderMesh" id="CylinderMesh_2txei"]
 material = SubResource("StandardMaterial3D_bom6v")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_haghl"]
+size = Vector3(20, 1, 20)
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_17rot")
 
@@ -46,8 +49,11 @@ use_collision = true
 script = ExtResource("2_jhlpo")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.67631, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+visible = false
 use_collision = true
+collision_layer = 2
+collision_mask = 2
 size = Vector3(100, 1, 100)
 
 [node name="Area3D" type="Area3D" parent="."]
@@ -60,6 +66,13 @@ shape = SubResource("CylinderShape3D_nekm8")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.977538)
 mesh = SubResource("CylinderMesh_2txei")
+
+[node name="Area3D-MouseOnly" type="Area3D" parent="."]
+input_capture_on_drag = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D-MouseOnly"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_haghl")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="mouse_entered" from="Area3D" to="." method="_on_area_3d_mouse_entered"]
