@@ -6,6 +6,7 @@ var mouse
 
 @onready var worldspace = get_world_3d().direct_space_state
 @onready var params = PhysicsRayQueryParameters3D.new()
+@onready var destruction_area: Area3D = $DestructionArea
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,5 +42,5 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_area_3d_mouse_entered() -> void:
 	print("mouse entered")#
 	if draggable:
-		draggable.run_animation()
+		draggable.run_animation(destruction_area.global_position)
 		draggable = null
