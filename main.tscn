@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bwnp1m7uwum3u"]
+[gd_scene load_steps=13 format=3 uid="uid://bwnp1m7uwum3u"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_17rot"]
 [ext_resource type="PackedScene" uid="uid://df6w0e4lxukw6" path="res://Shape.tscn" id="2_c87p8"]
@@ -17,6 +17,12 @@ background_mode = 2
 sky = SubResource("Sky_d2nps")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_eq8x6"]
+size = Vector2(25, 25)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0nxbg"]
+size = Vector2(25, 25)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nekm8"]
 
@@ -50,18 +56,14 @@ environment = SubResource("Environment_4pvca")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0)
 
-[node name="MouseReferencePlane" type="CSGBox3D" parent="."]
+[node name="MouseReferencePlane" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 visible = false
-use_collision = true
-collision_layer = 2
-collision_mask = 2
-size = Vector3(100, 1, 100)
+mesh = SubResource("PlaneMesh_eq8x6")
 
-[node name="ShadowPlane" type="CSGBox3D" parent="."]
+[node name="ShadowPlane" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
-use_collision = true
-size = Vector3(100, 1, 100)
+mesh = SubResource("PlaneMesh_0nxbg")
 
 [node name="DestructionArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.52729, -0.950213, -2.48573)
