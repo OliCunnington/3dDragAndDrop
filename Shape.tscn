@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://df6w0e4lxukw6"]
+
+[ext_resource type="Script" path="res://shape.gd" id="1_u4jo3"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_yv8nj"]
+
+[sub_resource type="Animation" id="Animation_tgxfl"]
+resource_name = "destroy"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1665, 1.4652),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.25, 1.25, 1.25), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tfg7j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x70o2"]
+_data = {
+"RESET": SubResource("Animation_tfg7j"),
+"destroy": SubResource("Animation_tgxfl")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3r2c6"]
+
+[node name="Shape" type="StaticBody3D"]
+script = ExtResource("1_u4jo3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_yv8nj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x70o2")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_3r2c6")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
